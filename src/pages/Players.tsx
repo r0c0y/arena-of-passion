@@ -138,7 +138,7 @@ const Players = () => {
     : players.filter(player => player.position === activeFilter);
 
   return (
-    <PageTransition>
+    <PageTransition effect="slide-left">
       <Navbar />
       
       {/* Hero Section */}

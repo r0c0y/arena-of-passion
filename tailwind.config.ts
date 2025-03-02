@@ -127,6 +127,22 @@ export default {
 					'60%': { transform: 'translate(2px, 2px)' },
 					'80%': { transform: 'translate(2px, -2px)' },
 					'100%': { transform: 'translate(0)' },
+				},
+				'stat-bar-fill': {
+					'0%': { width: '0%' },
+					'100%': { width: 'var(--stat-percent)' },
+				},
+				'number-increment': {
+					'0%': { content: 'var(--from-num)' },
+					'100%': { content: 'var(--to-num)' },
+				},
+				'3d-rotate': {
+					'0%': { transform: 'rotateY(0deg)' },
+					'100%': { transform: 'rotateY(360deg)' },
+				},
+				'card-hover-glow': {
+					'0%, 100%': { boxShadow: '0 0 15px rgba(0, 166, 251, 0.4)' },
+					'50%': { boxShadow: '0 0 30px rgba(0, 166, 251, 0.7)' },
 				}
 			},
 			animation: {
@@ -141,7 +157,11 @@ export default {
 				'text-flicker': 'text-flicker 2s linear forwards',
 				'float': 'float 6s ease-in-out infinite',
 				'count-up': 'count-up 2s forwards',
-				'glitch': 'glitch 0.8s ease-in-out infinite'
+				'glitch': 'glitch 0.8s ease-in-out infinite',
+				'stat-bar-fill': 'stat-bar-fill 1s ease-out forwards',
+				'number-increment': 'number-increment 2s ease-out forwards',
+				'3d-rotate': '3d-rotate 1.5s ease-in-out',
+				'card-hover-glow': 'card-hover-glow 2s infinite',
 			},
 			backgroundImage: {
 				'hero-pattern': "url('/src/assets/hero-bg.jpg')",
