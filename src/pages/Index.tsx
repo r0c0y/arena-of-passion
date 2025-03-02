@@ -124,10 +124,10 @@ const Index = () => {
                   </div>
                 </div>
                 
-                <a href="#" className="btn-primary inline-flex items-center space-x-2">
+                <Link to="/tickets" className="btn-primary inline-flex items-center space-x-2">
                   <span>Get Tickets</span>
                   <ArrowRight size={16} />
-                </a>
+                </Link>
               </div>
               
               <div className="w-full lg:w-1/2 mt-8 lg:mt-0">
@@ -395,10 +395,10 @@ const Index = () => {
             <p className="text-white/90 text-lg mb-8">
               Experience the passion, intensity, and pure adrenaline of Arena FC. Be part of our journey.
             </p>
-            <a href="#" className="bg-white text-team-red font-oswald uppercase tracking-wider py-3 px-8 text-lg inline-flex items-center space-x-2 hover:bg-white/90 transition-colors">
+            <Link to="/tickets" className="bg-white text-team-red font-oswald uppercase tracking-wider py-3 px-8 text-lg inline-flex items-center space-x-2 hover:bg-white/90 transition-colors">
               <span>Get Tickets Now</span>
               <ArrowRight size={18} />
-            </a>
+            </Link>
           </div>
         </div>
       </section>

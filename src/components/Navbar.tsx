@@ -33,8 +33,10 @@ const Navbar = () => {
     { name: 'Players', path: '/players' },
     { name: 'Schedule', path: '/schedule' },
     { name: 'History', path: '/history' },
+    { name: 'Archive', path: '/archive' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
+    { name: 'Sponsorship', path: '/sponsorship' },
   ];
 
   return (
@@ -68,12 +70,12 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <a
-              href="/"
+            <Link
+              to="/tickets"
               className="ml-4 btn-primary text-white"
             >
               Live Stream
-            </a>
+            </Link>
           </nav>
 
           {/* Mobile Navigation Toggle */}
@@ -107,12 +109,12 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <a
-            href="/"
+          <Link
+            to="/tickets"
             className="mt-4 btn-primary text-white"
           >
             Live Stream
-          </a>
+          </Link>
         </div>
       </div>
     </header>
