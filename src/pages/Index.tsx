@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowDown, Clock, MapPin, Trophy } from 'lucide-react';
@@ -12,6 +11,31 @@ const heroVideo = "https://player.vimeo.com/external/371433846.sd.mp4?s=236b1eb6
 const Index = () => {
   const nextMatchDate = new Date();
   nextMatchDate.setDate(nextMatchDate.getDate() + 3); // Next match in 3 days
+  
+  // Reference to sections for smooth scrolling
+  const nextMatchRef = useRef(null);
+  
+  // Parallax effect for the arrow
+  const arrowRef = useRef(null);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (arrowRef.current) {
+        const scrollPosition = window.scrollY;
+        // Apply parallax effect to arrow
+        arrowRef.current.style.transform = `translateY(${scrollPosition * 0.15}px)`;
+        arrowRef.current.style.opacity = Math.max(0, 1 - scrollPosition * 0.005);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
+  // Smooth scroll function for the down arrow
+  const scrollToNextMatch = () => {
+    nextMatchRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <PageTransition>
@@ -61,16 +85,23 @@ const Index = () => {
             </div>
           </div>
           
-          <div className="absolute bottom-12 left-0 right-0 flex justify-center animate-bounce">
-            <a href="#next-match" className="text-white/70 hover:text-white transition-colors">
-              <ArrowDown size={32} />
-            </a>
+          <div 
+            ref={arrowRef}
+            className="absolute bottom-12 left-0 right-0 flex justify-center cursor-pointer transition-transform duration-300 hover:translate-y-2"
+            onClick={scrollToNextMatch}
+          >
+            <button 
+              className="text-white/70 hover:text-white transition-colors p-4 rounded-full bg-black/20 backdrop-blur-sm hover:bg-black/30"
+              aria-label="Scroll to next section"
+            >
+              <ArrowDown size={32} className="animate-bounce" />
+            </button>
           </div>
         </div>
       </section>
       
       {/* Next Match Section */}
-      <section id="next-match" className="bg-team-black py-24">
+      <section ref={nextMatchRef} id="next-match" className="bg-team-black py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
