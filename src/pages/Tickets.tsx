@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { ArrowRight, Calendar, MapPin, Ticket } from 'lucide-react';
-import PageTransition from '@/components/PageTransition';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -53,7 +52,7 @@ const Tickets = () => {
   };
   
   return (
-    <PageTransition effect="fade">
+    <div>
       <Navbar />
       
       {/* Hero Section */}
@@ -184,7 +183,7 @@ const Tickets = () => {
       </section>
       
       <Footer />
-    </PageTransition>
+    </div>
   );
 };
 
