@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowDown, Clock, MapPin, Trophy } from 'lucide-react';
@@ -66,9 +67,9 @@ const Index = () => {
             
             <h1 
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-oswald uppercase tracking-wide mb-6 text-outline max-w-4xl mx-auto text-glitch"
-              data-text="Football is More Than a Game—It's Who We Are"
+              data-text="Champions Rise From The Ashes, We Are Arena FC"
             >
-              Football is More Than a Game—It's Who We Are
+              Champions Rise From The Ashes, We Are Arena FC
             </h1>
             
             <p className="text-white/80 mb-8 max-w-2xl mx-auto text-base sm:text-lg animate-fade-in" style={{ animationDelay: '0.4s' }}>
