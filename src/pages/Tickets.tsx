@@ -116,66 +116,64 @@ const Tickets = () => {
               <div>
                 <h2 className="text-white text-3xl font-oswald uppercase mb-6">Select Tickets</h2>
                 
-                {selectedMatch !== null && (
-                  <form onSubmit={handlePurchase} className="space-y-6 bg-team-gray/50 border border-white/10 p-6 rounded-sm">
-                    <div>
-                      <h3 className="text-white font-oswald text-xl mb-4">
-                        Arena FC vs {upcomingMatches[selectedMatch].opponent}
-                      </h3>
-                      <div className="flex items-center space-x-4 text-white/70 mb-2">
-                        <Calendar size={16} />
-                        <span>{upcomingMatches[selectedMatch].date}, {upcomingMatches[selectedMatch].time}</span>
-                      </div>
-                      <div className="flex items-center space-x-4 text-white/70">
-                        <MapPin size={16} />
-                        <span>{upcomingMatches[selectedMatch].location}</span>
-                      </div>
+                <form onSubmit={handlePurchase} className="space-y-6 bg-team-gray/50 border border-white/10 p-6 rounded-sm">
+                  <div>
+                    <h3 className="text-white font-oswald text-xl mb-4">
+                      Arena FC vs {upcomingMatches[selectedMatch].opponent}
+                    </h3>
+                    <div className="flex items-center space-x-4 text-white/70 mb-2">
+                      <Calendar size={16} />
+                      <span>{upcomingMatches[selectedMatch].date}, {upcomingMatches[selectedMatch].time}</span>
                     </div>
-                    
-                    <div>
-                      <label htmlFor="ticket-type" className="block text-white/80 mb-2">Ticket Type</label>
-                      <select
-                        id="ticket-type"
-                        value={ticketType}
-                        onChange={(e) => setTicketType(e.target.value)}
-                        className="w-full bg-team-black/50 border border-white/10 text-white px-4 py-3 rounded-sm focus:outline-none focus:ring-2 focus:ring-team-blue"
-                      >
-                        <option value="standard">Standard - ${upcomingMatches[selectedMatch].price.standard}</option>
-                        <option value="premium">Premium - ${upcomingMatches[selectedMatch].price.premium}</option>
-                        <option value="vip">VIP - ${upcomingMatches[selectedMatch].price.vip}</option>
-                      </select>
+                    <div className="flex items-center space-x-4 text-white/70">
+                      <MapPin size={16} />
+                      <span>{upcomingMatches[selectedMatch].location}</span>
                     </div>
-                    
-                    <div>
-                      <label htmlFor="quantity" className="block text-white/80 mb-2">Quantity</label>
-                      <input
-                        type="number"
-                        id="quantity"
-                        min="1"
-                        max="10"
-                        value={ticketQuantity}
-                        onChange={(e) => setTicketQuantity(parseInt(e.target.value))}
-                        className="w-full bg-team-black/50 border border-white/10 text-white px-4 py-3 rounded-sm focus:outline-none focus:ring-2 focus:ring-team-blue"
-                      />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="ticket-type" className="block text-white/80 mb-2">Ticket Type</label>
+                    <select
+                      id="ticket-type"
+                      value={ticketType}
+                      onChange={(e) => setTicketType(e.target.value)}
+                      className="w-full bg-team-black/50 border border-white/10 text-white px-4 py-3 rounded-sm focus:outline-none focus:ring-2 focus:ring-team-blue"
+                    >
+                      <option value="standard">Standard - ${upcomingMatches[selectedMatch].price.standard}</option>
+                      <option value="premium">Premium - ${upcomingMatches[selectedMatch].price.premium}</option>
+                      <option value="vip">VIP - ${upcomingMatches[selectedMatch].price.vip}</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="quantity" className="block text-white/80 mb-2">Quantity</label>
+                    <input
+                      type="number"
+                      id="quantity"
+                      min="1"
+                      max="10"
+                      value={ticketQuantity}
+                      onChange={(e) => setTicketQuantity(parseInt(e.target.value))}
+                      className="w-full bg-team-black/50 border border-white/10 text-white px-4 py-3 rounded-sm focus:outline-none focus:ring-2 focus:ring-team-blue"
+                    />
+                  </div>
+                  
+                  <div className="border-t border-white/10 pt-4">
+                    <div className="flex justify-between text-white mb-2">
+                      <span>Price:</span>
+                      <span>${upcomingMatches[selectedMatch].price[ticketType as keyof typeof upcomingMatches[selectedMatch].price]} x {ticketQuantity}</span>
                     </div>
-                    
-                    <div className="border-t border-white/10 pt-4">
-                      <div className="flex justify-between text-white mb-2">
-                        <span>Price:</span>
-                        <span>${upcomingMatches[selectedMatch].price[ticketType as keyof typeof upcomingMatches[selectedMatch].price]} x {ticketQuantity}</span>
-                      </div>
-                      <div className="flex justify-between text-white font-bold text-lg">
-                        <span>Total:</span>
-                        <span>${upcomingMatches[selectedMatch].price[ticketType as keyof typeof upcomingMatches[selectedMatch].price] * ticketQuantity}</span>
-                      </div>
+                    <div className="flex justify-between text-white font-bold text-lg">
+                      <span>Total:</span>
+                      <span>${upcomingMatches[selectedMatch].price[ticketType as keyof typeof upcomingMatches[selectedMatch].price] * ticketQuantity}</span>
                     </div>
-                    
-                    <button type="submit" className="btn-primary w-full flex items-center justify-center space-x-2">
-                      <Ticket size={18} />
-                      <span>Purchase Tickets</span>
-                    </button>
-                  </form>
-                )}
+                  </div>
+                  
+                  <button type="submit" className="btn-primary w-full flex items-center justify-center space-x-2">
+                    <Ticket size={18} />
+                    <span>Purchase Tickets</span>
+                  </button>
+                </form>
               </div>
             </div>
           </div>
