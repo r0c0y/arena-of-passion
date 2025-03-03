@@ -5,7 +5,7 @@ import { ArrowRight, Calendar, MapPin, Ticket } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const Tickets = () => {
+const Tickets: React.FC = () => {
   const { toast } = useToast();
   const [selectedMatch, setSelectedMatch] = useState(0);
   const [ticketQuantity, setTicketQuantity] = useState(1);
@@ -35,7 +35,7 @@ const Tickets = () => {
       time: '7:00 PM',
       location: 'Riverside Stadium, Rivertown',
       price: { standard: 35, premium: 55, vip: 100 }
-    },
+    }
   ];
   
   const handlePurchase = (e: React.FormEvent) => {
@@ -52,7 +52,7 @@ const Tickets = () => {
   };
   
   return (
-    <div>
+    <React.Fragment>
       <Navbar />
       
       {/* Hero Section */}
@@ -181,7 +181,7 @@ const Tickets = () => {
       </section>
       
       <Footer />
-    </div>
+    </React.Fragment>
   );
 };
 
