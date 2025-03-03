@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowDown, Clock, MapPin, Trophy } from 'lucide-react';
@@ -67,9 +66,9 @@ const Index = () => {
             
             <h1 
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-oswald uppercase tracking-wide mb-6 text-outline max-w-4xl mx-auto text-glitch"
-              data-text="Champions Rise From The Ashes, We Are Arena FC"
+              data-text="Football is More Than a Game—It's Who We Are"
             >
-              Champions Rise From The Ashes, We Are Arena FC
+              Football is More Than a Game—It's Who We Are
             </h1>
             
             <p className="text-white/80 mb-8 max-w-2xl mx-auto text-base sm:text-lg animate-fade-in" style={{ animationDelay: '0.4s' }}>
@@ -125,10 +124,10 @@ const Index = () => {
                   </div>
                 </div>
                 
-                <Link to="/tickets" className="btn-primary inline-flex items-center space-x-2">
+                <a href="#" className="btn-primary inline-flex items-center space-x-2">
                   <span>Get Tickets</span>
                   <ArrowRight size={16} />
-                </Link>
+                </a>
               </div>
               
               <div className="w-full lg:w-1/2 mt-8 lg:mt-0">
@@ -396,10 +395,10 @@ const Index = () => {
             <p className="text-white/90 text-lg mb-8">
               Experience the passion, intensity, and pure adrenaline of Arena FC. Be part of our journey.
             </p>
-            <Link to="/tickets" className="bg-white text-team-red font-oswald uppercase tracking-wider py-3 px-8 text-lg inline-flex items-center space-x-2 hover:bg-white/90 transition-colors">
+            <a href="#" className="bg-white text-team-red font-oswald uppercase tracking-wider py-3 px-8 text-lg inline-flex items-center space-x-2 hover:bg-white/90 transition-colors">
               <span>Get Tickets Now</span>
               <ArrowRight size={18} />
-            </Link>
+            </a>
           </div>
         </div>
       </section>

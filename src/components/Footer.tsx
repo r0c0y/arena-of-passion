@@ -66,22 +66,10 @@ const Footer = () => {
                 <Link to="/schedule" className="text-white/70 hover:text-white transition-colors">Match Schedule</Link>
               </li>
               <li>
-                <Link to="/archive" className="text-white/70 hover:text-white transition-colors">Archive</Link>
-              </li>
-              <li>
-                <Link to="/history" className="text-white/70 hover:text-white transition-colors">History</Link>
-              </li>
-              <li>
                 <Link to="/about" className="text-white/70 hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
                 <Link to="/contact" className="text-white/70 hover:text-white transition-colors">Contact</Link>
-              </li>
-              <li>
-                <Link to="/sponsorship" className="text-white/70 hover:text-white transition-colors">Sponsorship</Link>
-              </li>
-              <li>
-                <Link to="/tickets" className="text-white/70 hover:text-white transition-colors">Tickets</Link>
               </li>
             </ul>
           </div>
