@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Navbar = () => {
@@ -29,14 +29,14 @@ const Navbar = () => {
   }, [location]);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Players', path: '/players' },
-    { name: 'Schedule', path: '/schedule' },
-    { name: 'History', path: '/history' },
-    { name: 'Archive', path: '/archive' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
-    { name: 'Sponsorship', path: '/sponsorship' },
+    { name: 'Home', path: '/', showOnMobile: true },
+    { name: 'Players', path: '/players', showOnMobile: true },
+    { name: 'Schedule', path: '/schedule', showOnMobile: false },
+    { name: 'History', path: '/history', showOnMobile: false },
+    { name: 'Archive', path: '/archive', showOnMobile: true },
+    { name: 'About', path: '/about', showOnMobile: true },
+    { name: 'Contact', path: '/contact', showOnMobile: false },
+    { name: 'Sponsorship', path: '/sponsorship', showOnMobile: true },
   ];
 
   return (
@@ -97,7 +97,7 @@ const Navbar = () => {
         )}
       >
         <div className="flex flex-col items-center justify-center h-full space-y-6 p-4">
-          {navLinks.map((link) => (
+          {navLinks.filter(link => link.showOnMobile).map((link) => (
             <Link
               key={link.path}
               to={link.path}

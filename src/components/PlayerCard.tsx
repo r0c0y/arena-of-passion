@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface PlayerCardProps {
   player: {
@@ -13,8 +14,14 @@ interface PlayerCardProps {
       matches: number;
       goals: number;
       assists: number;
+      tackles?: number;
+      passAccuracy?: number;
     };
     quote?: string;
+    age?: number;
+    height?: string;
+    nationality?: string;
+    strongFoot?: 'Left' | 'Right' | 'Both';
   };
   className?: string;
 }
@@ -64,6 +71,33 @@ const StatCounter = ({
   );
 };
 
+const StatBar = ({ 
+  value, 
+  maxValue = 100,
+  label
+}: { 
+  value: number; 
+  maxValue?: number;
+  label: string;
+}) => {
+  const percentage = (value / maxValue) * 100;
+  
+  return (
+    <div className="mb-2">
+      <div className="flex justify-between mb-1">
+        <span className="text-white/70 text-xs">{label}</span>
+        <span className="text-white/90 text-xs font-medium">{value}/{maxValue}</span>
+      </div>
+      <div className="w-full bg-team-gray/50 h-2 rounded-sm overflow-hidden">
+        <div 
+          className="bg-team-red h-full transition-all duration-1000 animate-stat-bar-fill"
+          style={{ width: `${percentage}%`, '--stat-percent': `${percentage}%` } as React.CSSProperties}
+        ></div>
+      </div>
+    </div>
+  );
+};
+
 const PlayerCard: React.FC<PlayerCardProps> = ({ player, className }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -72,7 +106,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className }) => {
     <div 
       className={cn(
         "relative overflow-hidden rounded-sm transition-all duration-500 group bg-team-gray h-[420px] cursor-pointer",
-        isExpanded && "h-[500px]",
+        isExpanded && "h-[520px]",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -144,7 +178,59 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className }) => {
             isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           )}>
             <div className="text-white/80 text-sm space-y-3">
-              <p>Career highlights and achievements will appear here.</p>
+              {player.stats.tackles && player.stats.passAccuracy && (
+                <div className="pt-2 space-y-2">
+                  <StatBar value={player.stats.tackles} maxValue={100} label="Tackles" />
+                  <StatBar value={player.stats.passAccuracy} label="Pass Accuracy %" />
+                </div>
+              )}
+              
+              {player.nationality && player.age && player.height && (
+                <div className="grid grid-cols-3 gap-2 pt-3">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="text-center">
+                          <div className="text-team-blue text-sm font-medium">{player.nationality}</div>
+                          <div className="text-white/50 text-xs">Nation</div>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Nationality</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="text-center">
+                          <div className="text-team-blue text-sm font-medium">{player.age}</div>
+                          <div className="text-white/50 text-xs">Age</div>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Player Age</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="text-center">
+                          <div className="text-team-blue text-sm font-medium">{player.height}</div>
+                          <div className="text-white/50 text-xs">Height</div>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Player Height</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              )}
+              
               <div className="pt-2">
                 <button className="bg-team-blue/80 hover:bg-team-blue text-white text-xs uppercase font-medium py-1 px-3 rounded-sm transition-colors duration-300">
                   Full Profile
