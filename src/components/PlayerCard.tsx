@@ -119,7 +119,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
   return (
     <div 
       className={cn(
-        "relative overflow-hidden rounded-sm transition-all duration-500 cursor-pointer perspective",
+        "relative overflow-hidden rounded-sm transition-all duration-500 cursor-pointer perspective shadow-lg hover:shadow-xl",
         isExpanded ? "h-[520px]" : "h-[420px]",
         isFlipped ? "card-flip" : "",
         className
@@ -161,11 +161,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
         </div>
         
         {/* Player Info */}
-        <div className="absolute bottom-0 left-0 w-full p-6 z-20">
+        <div className="absolute bottom-0 left-0 w-full p-5 z-20">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className={cn(
-                "text-team-red uppercase text-sm font-semibold tracking-wider bg-black/40 px-2 py-0.5 rounded-sm shadow-sm",
+                "text-team-red uppercase text-sm font-semibold tracking-wider bg-black/50 px-2 py-0.5 rounded-sm shadow-sm",
                 isHovered && "animate-pulse"
               )}>
                 {player.position}
@@ -183,7 +183,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
             </h3>
             
             {/* Stats */}
-            <div className="flex justify-between gap-2 pt-2 bg-black/40 p-2 rounded-sm">
+            <div className="flex justify-between gap-2 pt-2 bg-black/50 p-3 rounded-sm">
               <StatCounter value={player.stats.matches} label="Matches" />
               <StatCounter value={player.stats.goals} label="Goals" />
               <StatCounter value={player.stats.assists} label="Assists" />
@@ -192,8 +192,8 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
             {/* Quote */}
             {player.quote && (
               <div className={cn(
-                "pt-2 italic text-white/90 text-sm transition-all duration-500 bg-black/50 p-2 rounded-sm mt-2",
-                isExpanded ? "opacity-100" : "opacity-0 h-0 mt-0 p-0",
+                "pt-2 italic text-white/90 text-sm transition-all duration-500 bg-black/60 p-3 rounded-sm mt-2",
+                isExpanded ? "opacity-100 max-h-24 overflow-y-auto" : "opacity-0 h-0 mt-0 p-0 overflow-hidden",
                 isExpanded && "h-auto"
               )}>
                 "{player.quote}"
@@ -202,7 +202,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
             
             {/* Expanded Content */}
             <div className={cn(
-              "pt-4 transition-all duration-500 overflow-hidden bg-black/60 rounded-sm mt-2 p-3",
+              "pt-2 transition-all duration-500 overflow-hidden bg-black/70 rounded-sm mt-2 p-3",
               isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0 p-0 mt-0"
             )}>
               <div className="text-white/90 text-sm space-y-3">
@@ -253,6 +253,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
             e.stopPropagation();
             setIsExpanded(!isExpanded);
           }}
+          aria-label={isExpanded ? "Collapse card" : "Expand card"}
         >
           {isExpanded ? 
             <ChevronUp size={16} className="text-white" /> : 
@@ -272,6 +273,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
             <button 
               onClick={handleFlip}
               className="text-white/90 hover:text-white bg-team-gray/50 hover:bg-team-gray/80 p-2 rounded-full transition-colors shadow-md"
+              aria-label="Flip card back"
             >
               <ChevronDown size={16} />
             </button>

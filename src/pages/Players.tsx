@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import PageTransition from '@/components/PageTransition';
 import Navbar from '@/components/Navbar';
@@ -27,7 +26,6 @@ interface PlayerData {
   strongFoot: 'Left' | 'Right' | 'Both';
 }
 
-// Sample player data
 const players: PlayerData[] = [
   {
     id: 1,
@@ -142,6 +140,120 @@ const players: PlayerData[] = [
     height: '5\'11"',
     nationality: 'Mexico',
     strongFoot: 'Right'
+  },
+  {
+    id: 7,
+    name: 'Hiroshi Tanaka',
+    position: 'Midfielder',
+    number: 6,
+    image: 'https://images.unsplash.com/photo-1602001638083-68909bf9b441?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+    stats: {
+      matches: 39,
+      goals: 8,
+      assists: 15,
+      tackles: 42,
+      passAccuracy: 91,
+    },
+    quote: "Every pass should tell a story.",
+    age: 25,
+    height: '5\'8"',
+    nationality: 'Japan',
+    strongFoot: 'Right'
+  },
+  {
+    id: 8,
+    name: 'Ibrahim Diallo',
+    position: 'Defender',
+    number: 2,
+    image: 'https://images.unsplash.com/photo-1627162279169-2da95578d6e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+    stats: {
+      matches: 41,
+      goals: 1,
+      assists: 4,
+      tackles: 82,
+      passAccuracy: 76,
+    },
+    quote: "In defense, timing is everything.",
+    age: 27,
+    height: '6\'3"',
+    nationality: 'Senegal',
+    strongFoot: 'Left'
+  },
+  {
+    id: 9,
+    name: 'Sofia Kovač',
+    position: 'Forward',
+    number: 7,
+    image: 'https://images.unsplash.com/photo-1613757874090-49061460a4c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+    stats: {
+      matches: 37,
+      goals: 22,
+      assists: 9,
+      tackles: 10,
+      passAccuracy: 79,
+    },
+    quote: "Attack with conviction, celebrate with passion.",
+    age: 21,
+    height: '5\'7"',
+    nationality: 'Croatia',
+    strongFoot: 'Right'
+  },
+  {
+    id: 10,
+    name: 'Gabriel Santos',
+    position: 'Midfielder',
+    number: 14,
+    image: 'https://images.unsplash.com/photo-1614632537423-5e1ed3friers?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+    stats: {
+      matches: 33,
+      goals: 7,
+      assists: 19,
+      tackles: 29,
+      passAccuracy: 88,
+    },
+    quote: "The game speaks through the ball.",
+    age: 26,
+    height: '5\'10"',
+    nationality: 'Brazil',
+    strongFoot: 'Both'
+  },
+  {
+    id: 11,
+    name: 'Lukas Schmidt',
+    position: 'Defender',
+    number: 5,
+    image: 'https://images.unsplash.com/photo-1560610219-10785878e825?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+    stats: {
+      matches: 40,
+      goals: 3,
+      assists: 2,
+      tackles: 71,
+      passAccuracy: 80,
+    },
+    quote: "Calculated risk makes champions.",
+    age: 29,
+    height: '6\'2"',
+    nationality: 'Germany',
+    strongFoot: 'Right'
+  },
+  {
+    id: 12,
+    name: 'Victor Okafor',
+    position: 'Forward',
+    number: 23,
+    image: 'https://images.unsplash.com/photo-1616298583720-d13682b9abf0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+    stats: {
+      matches: 31,
+      goals: 19,
+      assists: 5,
+      tackles: 8,
+      passAccuracy: 73,
+    },
+    quote: "Goals are just the beginning.",
+    age: 23,
+    height: '6\'0"',
+    nationality: 'Nigeria',
+    strongFoot: 'Right'
   }
 ];
 
@@ -153,7 +265,6 @@ const Players = () => {
   const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
   const [highlightedStat, setHighlightedStat] = useState<string | null>(null);
 
-  // Filter players based on position and search query
   const filteredPlayers = players.filter(player => {
     const matchesPosition = positionFilter === 'All' || player.position === positionFilter;
     const matchesSearch = player.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -161,7 +272,6 @@ const Players = () => {
     return matchesPosition && matchesSearch;
   });
 
-  // Sort players based on selected option
   const sortedPlayers = [...filteredPlayers].sort((a, b) => {
     switch(sortOption) {
       case 'name':
@@ -187,7 +297,6 @@ const Players = () => {
   
   const closePlayerDetails = () => {
     setShowDetailModal(false);
-    // Small delay to allow animation to complete
     setTimeout(() => setSelectedPlayer(null), 300);
   };
 
@@ -205,7 +314,6 @@ const Players = () => {
     <PageTransition effect="slide-left">
       <Navbar />
       
-      {/* Hero Section */}
       <section className="pt-32 pb-20 bg-team-black relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1459865264687-595d652de67e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')] bg-cover bg-center opacity-20"></div>
         <div className="container mx-auto px-4 relative z-10">
@@ -223,7 +331,6 @@ const Players = () => {
         </div>
       </section>
       
-      {/* Team Highlights Section */}
       <section className="py-12 bg-team-gray">
         <div className="container mx-auto px-4">
           <h2 className="text-white text-3xl font-oswald uppercase mb-8 text-center">
@@ -303,12 +410,10 @@ const Players = () => {
         </div>
       </section>
       
-      {/* Players Section with Filters */}
       <section className="py-16 bg-team-gray/20">
         <div className="container mx-auto px-4">
           <div className="mb-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
-              {/* Search */}
               <div className="relative w-full md:w-64">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <Search size={18} className="text-white/50" />
@@ -322,7 +427,6 @@ const Players = () => {
                 />
               </div>
               
-              {/* Sort and Filter */}
               <div className="flex space-x-4 w-full md:w-auto">
                 <div className="relative w-full md:w-48">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -358,14 +462,12 @@ const Players = () => {
             </div>
           </div>
           
-          {/* Display Results Count */}
           <div className="mb-6 text-white/70">
             Showing {sortedPlayers.length} player{sortedPlayers.length !== 1 ? 's' : ''}
             {positionFilter !== 'All' ? ` (${positionFilter}s)` : ''}
             {searchQuery ? ` matching "${searchQuery}"` : ''}
           </div>
           
-          {/* Players Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {sortedPlayers.map(player => (
               <PlayerCard 
@@ -393,7 +495,6 @@ const Players = () => {
         </div>
       </section>
       
-      {/* Team Stats Section */}
       <section className="py-16 bg-team-black">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -408,31 +509,88 @@ const Players = () => {
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="bg-team-gray/30 p-6 text-center rounded-sm">
-                <div className="text-4xl md:text-5xl font-oswald text-team-red mb-2 animate-pulse-glow">28</div>
-                <div className="text-white/70 uppercase tracking-wider text-sm">Matches Played</div>
+              <div className="bg-team-gray/30 p-6 text-center rounded-sm relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="text-4xl md:text-5xl font-oswald text-team-red mb-2 animate-pulse-glow filter blur-[2px] hover:blur-none transition-all duration-500">28</div>
+                  <div className="text-white/70 uppercase tracking-wider text-sm">Matches Played</div>
+                </div>
+                <div className="absolute inset-0 bg-team-gray/10 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
               </div>
               
-              <div className="bg-team-gray/30 p-6 text-center rounded-sm">
-                <div className="text-4xl md:text-5xl font-oswald text-team-red mb-2 animate-pulse-glow">45</div>
-                <div className="text-white/70 uppercase tracking-wider text-sm">Goals Scored</div>
+              <div className="bg-team-gray/30 p-6 text-center rounded-sm relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="text-4xl md:text-5xl font-oswald text-team-red mb-2 animate-pulse-glow filter blur-[2px] hover:blur-none transition-all duration-500">45</div>
+                  <div className="text-white/70 uppercase tracking-wider text-sm">Goals Scored</div>
+                </div>
+                <div className="absolute inset-0 bg-team-gray/10 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
               </div>
               
-              <div className="bg-team-gray/30 p-6 text-center rounded-sm">
-                <div className="text-4xl md:text-5xl font-oswald text-team-red mb-2 animate-pulse-glow">18</div>
-                <div className="text-white/70 uppercase tracking-wider text-sm">Clean Sheets</div>
+              <div className="bg-team-gray/30 p-6 text-center rounded-sm relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="text-4xl md:text-5xl font-oswald text-team-red mb-2 animate-pulse-glow filter blur-[2px] hover:blur-none transition-all duration-500">18</div>
+                  <div className="text-white/70 uppercase tracking-wider text-sm">Clean Sheets</div>
+                </div>
+                <div className="absolute inset-0 bg-team-gray/10 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
               </div>
               
-              <div className="bg-team-gray/30 p-6 text-center rounded-sm">
-                <div className="text-4xl md:text-5xl font-oswald text-team-blue mb-2 animate-pulse-glow">3</div>
-                <div className="text-white/70 uppercase tracking-wider text-sm">Trophies Won</div>
+              <div className="bg-team-gray/30 p-6 text-center rounded-sm relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="text-4xl md:text-5xl font-oswald text-team-blue mb-2 animate-pulse-glow filter blur-[2px] hover:blur-none transition-all duration-500">3</div>
+                  <div className="text-white/70 uppercase tracking-wider text-sm">Trophies Won</div>
+                </div>
+                <div className="absolute inset-0 bg-team-gray/10 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
               </div>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Player Detail Modal */}
+      <section className="py-16 bg-team-gray/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="text-team-red font-medium uppercase tracking-wider text-sm">History</span>
+            <h2 className="text-white text-3xl sm:text-4xl font-oswald uppercase mt-2 mb-6">
+              Team Archive
+            </h2>
+            <p className="text-white/80 max-w-2xl mx-auto">
+              Explore our team's rich history, memorable moments, and the legacy we've built throughout the years.
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-team-red/30 transform md:translate-x-px"></div>
+              
+              <div className="space-y-12">
+                {[2023, 2022, 2020, 2018, 2015].map((year, index) => (
+                  <div key={year} className={`relative ${index % 2 === 0 ? 'md:pl-1/2' : 'md:pr-1/2 md:text-right md:ml-auto'}`}>
+                    <div className="absolute left-[-8px] md:left-1/2 top-0 w-4 h-4 rounded-full bg-team-red transform md:translate-x-[-8px]"></div>
+                    
+                    <div className="ml-6 md:ml-0 bg-team-gray/30 border border-white/10 p-5 rounded-md">
+                      <div className="text-team-red text-xl font-oswald mb-2">{year}</div>
+                      <h3 className="text-white text-lg font-semibold mb-2">
+                        {index === 0 ? 'National Cup Victory' :
+                         index === 1 ? 'Regional Championship' :
+                         index === 2 ? 'Team Reformation' :
+                         index === 3 ? 'International Tournament' :
+                         'Club Foundation'}
+                      </h3>
+                      <p className="text-white/70">
+                        {index === 0 ? 'Won the national cup after a thrilling final that went to extra time.' :
+                         index === 1 ? 'Dominated the regional championship, securing the title with two matches to spare.' :
+                         index === 2 ? 'Major restructuring of the team with focus on youth development and modern playing style.' :
+                         index === 3 ? 'First international tournament appearance, reaching the quarter-finals.' :
+                         'The club was founded with a mission to build a competitive and community-focused team.'}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {showDetailModal && selectedPlayer && (
         <PlayerDetail 
           player={selectedPlayer} 
