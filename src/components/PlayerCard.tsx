@@ -66,8 +66,8 @@ const StatCounter = ({
       className={cn("text-center", className)}
       onMouseEnter={() => setIsVisible(true)}
     >
-      <div className="text-white/90 font-oswald text-xl">{count}</div>
-      <div className="text-white/50 text-xs uppercase">{label}</div>
+      <div className="text-white font-oswald text-xl font-bold">{count}</div>
+      <div className="text-white/70 text-xs uppercase font-medium">{label}</div>
     </div>
   );
 };
@@ -133,18 +133,18 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
         "absolute inset-0 bg-team-gray w-full h-full transition-all duration-500 backface-hidden",
         isFlipped ? "rotate-y-180" : "rotate-y-0"
       )}>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-10"></div>
         
         {/* Player's Rating - FIFA style */}
         <div className="absolute top-4 left-4 z-20">
-          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-team-red to-team-black w-14 h-14 rounded-full border-2 border-white/20">
+          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-team-red to-team-black w-14 h-14 rounded-full border-2 border-white/20 shadow-lg">
             <span className="text-white font-oswald text-xl font-bold">{Math.floor(getPlayerRating())}</span>
-            <span className="text-white/80 text-[10px] uppercase -mt-1">{player.position.substring(0, 3)}</span>
+            <span className="text-white/90 text-[10px] uppercase -mt-1 font-semibold">{player.position.substring(0, 3)}</span>
           </div>
         </div>
         
         {/* Player Number */}
-        <div className="absolute top-4 right-4 font-oswald text-6xl font-bold opacity-30 text-white z-10">
+        <div className="absolute top-4 right-4 font-oswald text-6xl font-bold opacity-20 text-white z-10 drop-shadow-lg">
           {player.number}
         </div>
         
@@ -154,7 +154,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
             src={player.image} 
             alt={player.name}
             className={cn(
-              "h-full w-full object-cover object-center transition-transform duration-700",
+              "h-full w-full object-cover object-top transition-transform duration-700",
               isHovered ? "scale-110" : "scale-100"
             )}
           />
@@ -162,28 +162,28 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
         
         {/* Player Info */}
         <div className="absolute bottom-0 left-0 w-full p-6 z-20">
-          <div className="space-y-2">
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className={cn(
-                "text-team-red uppercase text-sm font-medium tracking-wider",
+                "text-team-red uppercase text-sm font-semibold tracking-wider bg-black/40 px-2 py-0.5 rounded-sm shadow-sm",
                 isHovered && "animate-pulse"
               )}>
                 {player.position}
               </span>
-              <div className="h-6 w-6 rounded-full bg-team-red flex items-center justify-center text-white text-xs font-bold">
+              <div className="h-8 w-8 rounded-full bg-team-red flex items-center justify-center text-white text-sm font-bold shadow-md">
                 {player.number}
               </div>
             </div>
             
             <h3 className={cn(
-              "text-white font-oswald text-2xl",
+              "text-white font-oswald text-2xl font-bold text-shadow-sm",
               isHovered && "text-glitch"
             )} data-text={player.name}>
               {player.name}
             </h3>
             
             {/* Stats */}
-            <div className="flex space-x-4 pt-2">
+            <div className="flex justify-between gap-2 pt-2 bg-black/40 p-2 rounded-sm">
               <StatCounter value={player.stats.matches} label="Matches" />
               <StatCounter value={player.stats.goals} label="Goals" />
               <StatCounter value={player.stats.assists} label="Assists" />
@@ -192,8 +192,8 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
             {/* Quote */}
             {player.quote && (
               <div className={cn(
-                "pt-2 italic text-white/70 text-sm transition-all duration-500",
-                isExpanded ? "opacity-100" : "opacity-0 h-0",
+                "pt-2 italic text-white/90 text-sm transition-all duration-500 bg-black/50 p-2 rounded-sm mt-2",
+                isExpanded ? "opacity-100" : "opacity-0 h-0 mt-0 p-0",
                 isExpanded && "h-auto"
               )}>
                 "{player.quote}"
@@ -202,38 +202,38 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
             
             {/* Expanded Content */}
             <div className={cn(
-              "pt-4 transition-all duration-500 overflow-hidden",
-              isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              "pt-4 transition-all duration-500 overflow-hidden bg-black/60 rounded-sm mt-2 p-3",
+              isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0 p-0 mt-0"
             )}>
-              <div className="text-white/80 text-sm space-y-3">
+              <div className="text-white/90 text-sm space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-white/60">Age:</span>
-                  <span>{player.age} years</span>
+                  <span className="text-white/70 font-medium">Age:</span>
+                  <span className="font-semibold">{player.age} years</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/60">Height:</span>
-                  <span>{player.height}</span>
+                  <span className="text-white/70 font-medium">Height:</span>
+                  <span className="font-semibold">{player.height}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/60">Nationality:</span>
-                  <span>{player.nationality}</span>
+                  <span className="text-white/70 font-medium">Nationality:</span>
+                  <span className="font-semibold">{player.nationality}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/60">Strong Foot:</span>
-                  <span>{player.strongFoot}</span>
+                  <span className="text-white/70 font-medium">Strong Foot:</span>
+                  <span className="font-semibold">{player.strongFoot}</span>
                 </div>
                 
-                <div className="flex justify-between pt-2">
+                <div className="flex justify-between pt-2 gap-2">
                   <button 
                     onClick={handleFlip} 
-                    className="bg-team-gray/80 hover:bg-team-gray text-white text-xs uppercase font-medium py-1 px-3 rounded-sm transition-colors duration-300 flex items-center"
+                    className="bg-team-gray hover:bg-team-gray/80 text-white text-xs uppercase font-medium py-2 px-3 rounded-sm transition-colors duration-300 flex items-center shadow-md"
                   >
                     <Star size={12} className="mr-1" />
                     View Stats
                   </button>
                   <button 
                     onClick={handleViewDetails}
-                    className="bg-team-blue/80 hover:bg-team-blue text-white text-xs uppercase font-medium py-1 px-3 rounded-sm transition-colors duration-300"
+                    className="bg-team-blue hover:bg-team-blue/80 text-white text-xs uppercase font-medium py-2 px-3 rounded-sm transition-colors duration-300 shadow-md"
                   >
                     Full Profile
                   </button>
@@ -246,7 +246,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
         {/* Expand/Collapse Button */}
         <button 
           className={cn(
-            "absolute bottom-4 right-4 z-20 w-8 h-8 rounded-full bg-team-black/70 border border-team-red/50 flex items-center justify-center transition-all",
+            "absolute bottom-4 right-4 z-20 w-8 h-8 rounded-full bg-team-black/70 border border-team-red/50 flex items-center justify-center transition-all shadow-md",
             isHovered && "bg-team-red/80"
           )}
           onClick={(e) => {
@@ -263,15 +263,15 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
       
       {/* Back of card - Stats view */}
       <div className={cn(
-        "absolute inset-0 w-full h-full bg-gradient-to-b from-team-black to-team-gray border border-team-blue/30 transition-all duration-500 backface-hidden",
+        "absolute inset-0 w-full h-full bg-gradient-to-b from-team-black to-team-gray border border-team-blue/30 transition-all duration-500 backface-hidden p-6",
         isFlipped ? "rotate-y-0" : "rotate-y-180"
       )}>
-        <div className="p-6 h-full flex flex-col">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-white font-oswald text-xl">{player.name}</h3>
+        <div className="h-full flex flex-col">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-white font-oswald text-xl font-bold">{player.name}</h3>
             <button 
               onClick={handleFlip}
-              className="text-white/70 hover:text-white bg-team-gray/50 hover:bg-team-gray/80 p-1 rounded-full transition-colors"
+              className="text-white/90 hover:text-white bg-team-gray/50 hover:bg-team-gray/80 p-2 rounded-full transition-colors shadow-md"
             >
               <ChevronDown size={16} />
             </button>
@@ -279,15 +279,15 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
           
           {/* FIFA-style Attributes */}
           <div className="flex-1 flex flex-col justify-center">
-            <h4 className="text-team-blue font-oswald text-lg mb-4 uppercase">Player Attributes</h4>
+            <h4 className="text-team-blue font-oswald text-lg mb-6 uppercase font-bold">Player Attributes</h4>
             
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
-                <div className="flex justify-between text-white/80 mb-1">
-                  <span>Speed</span>
-                  <span>{60 + Math.floor(Math.random() * 30)}</span>
+                <div className="flex justify-between text-white/90 mb-2">
+                  <span className="font-medium">Speed</span>
+                  <span className="font-bold">{60 + Math.floor(Math.random() * 30)}</span>
                 </div>
-                <div className="h-2 bg-team-gray/50 rounded-full overflow-hidden">
+                <div className="h-3 bg-team-gray/50 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-team-red"
                     style={{width: `${60 + Math.floor(Math.random() * 30)}%`}}
@@ -296,11 +296,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
               </div>
               
               <div>
-                <div className="flex justify-between text-white/80 mb-1">
-                  <span>Shooting</span>
-                  <span>{player.position === 'Forward' ? 70 + Math.floor(Math.random() * 20) : 50 + Math.floor(Math.random() * 30)}</span>
+                <div className="flex justify-between text-white/90 mb-2">
+                  <span className="font-medium">Shooting</span>
+                  <span className="font-bold">{player.position === 'Forward' ? 70 + Math.floor(Math.random() * 20) : 50 + Math.floor(Math.random() * 30)}</span>
                 </div>
-                <div className="h-2 bg-team-gray/50 rounded-full overflow-hidden">
+                <div className="h-3 bg-team-gray/50 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-team-red"
                     style={{width: `${player.position === 'Forward' ? 70 + Math.floor(Math.random() * 20) : 50 + Math.floor(Math.random() * 30)}%`}}
@@ -309,11 +309,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
               </div>
               
               <div>
-                <div className="flex justify-between text-white/80 mb-1">
-                  <span>Passing</span>
-                  <span>{player.position === 'Midfielder' ? 75 + Math.floor(Math.random() * 15) : 60 + Math.floor(Math.random() * 20)}</span>
+                <div className="flex justify-between text-white/90 mb-2">
+                  <span className="font-medium">Passing</span>
+                  <span className="font-bold">{player.position === 'Midfielder' ? 75 + Math.floor(Math.random() * 15) : 60 + Math.floor(Math.random() * 20)}</span>
                 </div>
-                <div className="h-2 bg-team-gray/50 rounded-full overflow-hidden">
+                <div className="h-3 bg-team-gray/50 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-team-blue"
                     style={{width: `${player.position === 'Midfielder' ? 75 + Math.floor(Math.random() * 15) : 60 + Math.floor(Math.random() * 20)}%`}}
@@ -322,11 +322,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
               </div>
               
               <div>
-                <div className="flex justify-between text-white/80 mb-1">
-                  <span>Dribbling</span>
-                  <span>{player.position === 'Forward' || player.position === 'Midfielder' ? 70 + Math.floor(Math.random() * 20) : 50 + Math.floor(Math.random() * 25)}</span>
+                <div className="flex justify-between text-white/90 mb-2">
+                  <span className="font-medium">Dribbling</span>
+                  <span className="font-bold">{player.position === 'Forward' || player.position === 'Midfielder' ? 70 + Math.floor(Math.random() * 20) : 50 + Math.floor(Math.random() * 25)}</span>
                 </div>
-                <div className="h-2 bg-team-gray/50 rounded-full overflow-hidden">
+                <div className="h-3 bg-team-gray/50 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-team-blue"
                     style={{width: `${player.position === 'Forward' || player.position === 'Midfielder' ? 70 + Math.floor(Math.random() * 20) : 50 + Math.floor(Math.random() * 25)}%`}}
@@ -335,11 +335,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
               </div>
               
               <div>
-                <div className="flex justify-between text-white/80 mb-1">
-                  <span>Defending</span>
-                  <span>{player.position === 'Defender' || player.position === 'Goalkeeper' ? 75 + Math.floor(Math.random() * 15) : 40 + Math.floor(Math.random() * 30)}</span>
+                <div className="flex justify-between text-white/90 mb-2">
+                  <span className="font-medium">Defending</span>
+                  <span className="font-bold">{player.position === 'Defender' || player.position === 'Goalkeeper' ? 75 + Math.floor(Math.random() * 15) : 40 + Math.floor(Math.random() * 30)}</span>
                 </div>
-                <div className="h-2 bg-team-gray/50 rounded-full overflow-hidden">
+                <div className="h-3 bg-team-gray/50 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-team-blue"
                     style={{width: `${player.position === 'Defender' || player.position === 'Goalkeeper' ? 75 + Math.floor(Math.random() * 15) : 40 + Math.floor(Math.random() * 30)}%`}}
@@ -348,11 +348,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
               </div>
               
               <div>
-                <div className="flex justify-between text-white/80 mb-1">
-                  <span>Physical</span>
-                  <span>{55 + Math.floor(Math.random() * 35)}</span>
+                <div className="flex justify-between text-white/90 mb-2">
+                  <span className="font-medium">Physical</span>
+                  <span className="font-bold">{55 + Math.floor(Math.random() * 35)}</span>
                 </div>
-                <div className="h-2 bg-team-gray/50 rounded-full overflow-hidden">
+                <div className="h-3 bg-team-gray/50 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-team-red"
                     style={{width: `${55 + Math.floor(Math.random() * 35)}%`}}
@@ -364,7 +364,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
           
           <button 
             onClick={handleViewDetails}
-            className="mt-6 bg-team-blue hover:bg-team-blue/80 text-white text-sm uppercase font-medium py-2 px-4 rounded-sm transition-colors duration-300 w-full"
+            className="mt-6 bg-team-blue hover:bg-team-blue/80 text-white text-sm uppercase font-medium py-3 px-4 rounded-sm transition-colors duration-300 w-full shadow-md"
           >
             View Full Profile
           </button>
@@ -374,7 +374,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, className, onViewDetail
       {/* Hover Overlay */}
       <div 
         className={cn(
-          "absolute inset-0 bg-team-blue/20 z-0 transition-opacity duration-300",
+          "absolute inset-0 bg-team-blue/10 z-0 transition-opacity duration-300",
           isHovered ? "opacity-100" : "opacity-0"
         )}
       ></div>

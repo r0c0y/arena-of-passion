@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
@@ -66,8 +67,13 @@
     text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 rgba(0,0,0,0.5), 1px 1px 0 rgba(0,0,0,0.5);
   }
   
+  .text-shadow-sm {
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  
   .text-glitch {
     position: relative;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
   }
   
   .text-glitch::before,
@@ -179,6 +185,27 @@
     width: var(--stat-width, 0%);
   }
   
+  /* Card flip effect */
+  .perspective {
+    perspective: 1000px;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-0 {
+    transform: rotateY(0deg);
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  
+  .card-flip {
+    transform: rotateY(180deg);
+  }
+  
   .player-expand-trigger {
     @apply absolute bottom-4 right-4 w-8 h-8 rounded-full bg-team-blue/80 flex items-center justify-center cursor-pointer transition-all duration-300;
   }
@@ -208,7 +235,7 @@
   }
   
   .stat-bar {
-    @apply h-2 bg-team-gray/50 rounded-full overflow-hidden relative;
+    @apply h-2 bg-team-gray/50 rounded-full overflow-hidden relative shadow-inner;
   }
   
   .stat-bar::after {
@@ -234,7 +261,7 @@
   }
   
   .player-detail-overlay {
-    @apply fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4;
+    @apply fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4;
     animation: fadeIn 0.3s ease-out;
   }
   
@@ -244,9 +271,8 @@
   }
   
   .player-detail-card {
-    @apply bg-gradient-to-b from-team-gray to-team-black border border-team-red/30 rounded-md w-full max-w-3xl max-h-[90vh] overflow-y-auto;
+    @apply bg-gradient-to-b from-team-gray to-team-black border border-team-red/30 rounded-md w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl;
     animation: scaleIn 0.3s ease-out;
-    box-shadow: 0 0 30px rgba(217, 4, 41, 0.3);
   }
   
   @keyframes scaleIn {
