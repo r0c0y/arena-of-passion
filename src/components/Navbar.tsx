@@ -35,6 +35,7 @@ const Navbar = () => {
     { name: 'History', path: '/history' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
+    { name: 'Tickets', path: '/tickets' },
   ];
 
   return (
@@ -69,8 +70,10 @@ const Navbar = () => {
               </Link>
             ))}
             <a
-              href="/"
+              href="https://watch.arena-fc.com/live"
               className="ml-4 btn-primary text-white"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Live Stream
             </a>
@@ -108,8 +111,10 @@ const Navbar = () => {
             </Link>
           ))}
           <a
-            href="/"
+            href="https://watch.arena-fc.com/live"
             className="mt-4 btn-primary text-white"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Live Stream
           </a>
