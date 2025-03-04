@@ -1,9 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PageTransition from '@/components/PageTransition';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PlayerCard from '@/components/PlayerCard';
+import PlayerDetail from '@/components/PlayerDetail';
+import { Search, Filter, Users, Trophy, TrendingUp } from 'lucide-react';
 
 interface PlayerData {
   id: number;
@@ -145,11 +147,59 @@ const players: PlayerData[] = [
 
 const Players = () => {
   const [positionFilter, setPositionFilter] = useState<string>('All');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [sortOption, setSortOption] = useState<string>('number');
+  const [selectedPlayer, setSelectedPlayer] = useState<PlayerData | null>(null);
+  const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
+  const [highlightedStat, setHighlightedStat] = useState<string | null>(null);
+
+  // Filter players based on position and search query
+  const filteredPlayers = players.filter(player => {
+    const matchesPosition = positionFilter === 'All' || player.position === positionFilter;
+    const matchesSearch = player.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                         player.nationality.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesPosition && matchesSearch;
+  });
+
+  // Sort players based on selected option
+  const sortedPlayers = [...filteredPlayers].sort((a, b) => {
+    switch(sortOption) {
+      case 'name':
+        return a.name.localeCompare(b.name);
+      case 'number':
+        return a.number - b.number;
+      case 'matches':
+        return b.stats.matches - a.stats.matches;
+      case 'goals':
+        return b.stats.goals - a.stats.goals;
+      case 'assists':
+        return b.stats.assists - a.stats.assists;
+      default:
+        return a.number - b.number;
+    }
+  });
+
+  const handleViewPlayerDetails = (playerId: number) => {
+    const player = players.find(p => p.id === playerId) || null;
+    setSelectedPlayer(player);
+    setShowDetailModal(true);
+  };
   
-  // Filter players based on position
-  const filteredPlayers = positionFilter === 'All' 
-    ? players 
-    : players.filter(player => player.position === positionFilter);
+  const closePlayerDetails = () => {
+    setShowDetailModal(false);
+    // Small delay to allow animation to complete
+    setTimeout(() => setSelectedPlayer(null), 300);
+  };
+
+  const getTeamHighlights = () => {
+    const topScorer = [...players].sort((a, b) => b.stats.goals - a.stats.goals)[0];
+    const topAssist = [...players].sort((a, b) => b.stats.assists - a.stats.assists)[0];
+    const mostMatches = [...players].sort((a, b) => b.stats.matches - a.stats.matches)[0];
+    
+    return { topScorer, topAssist, mostMatches };
+  };
+
+  const { topScorer, topAssist, mostMatches } = getTeamHighlights();
   
   return (
     <PageTransition effect="slide-left">
@@ -161,8 +211,9 @@ const Players = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <span className="text-team-red font-medium uppercase tracking-wider text-sm">The Warriors</span>
-            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-oswald uppercase mt-2 mb-6">
-              Our Players
+            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-oswald uppercase mt-2 mb-6 relative inline-block">
+              <span className="relative z-10">Our Players</span>
+              <span className="absolute -left-1 -top-1 text-team-blue opacity-50 z-0">Our Players</span>
             </h1>
             <p className="text-white/80 text-lg">
               Meet the talented individuals who represent our team on the field,
@@ -172,67 +223,173 @@ const Players = () => {
         </div>
       </section>
       
-      {/* Players Section */}
+      {/* Team Highlights Section */}
+      <section className="py-12 bg-team-gray">
+        <div className="container mx-auto px-4">
+          <h2 className="text-white text-3xl font-oswald uppercase mb-8 text-center">
+            <span className="border-b-2 border-team-red pb-2">Team Highlights</span>
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div 
+              className="bg-gradient-to-br from-team-black to-team-gray/80 p-6 rounded-sm border border-team-red/20 transform hover:scale-105 transition-transform duration-300"
+              onMouseEnter={() => setHighlightedStat('topScorer')}
+              onMouseLeave={() => setHighlightedStat(null)}
+              onClick={() => handleViewPlayerDetails(topScorer.id)}
+            >
+              <div className="flex items-center space-x-4">
+                <div className="bg-team-red/90 rounded-full p-3">
+                  <Trophy size={24} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white text-lg font-oswald">Top Scorer</h3>
+                  <p className="text-white/70 text-sm">{topScorer.name}</p>
+                </div>
+              </div>
+              <div className="mt-4 text-center">
+                <div className={`text-4xl font-oswald ${highlightedStat === 'topScorer' ? 'text-team-red animate-pulse-glow' : 'text-white'}`}>
+                  {topScorer.stats.goals}
+                </div>
+                <div className="text-white/50 text-sm uppercase">Goals</div>
+              </div>
+            </div>
+            
+            <div 
+              className="bg-gradient-to-br from-team-black to-team-gray/80 p-6 rounded-sm border border-team-blue/20 transform hover:scale-105 transition-transform duration-300"
+              onMouseEnter={() => setHighlightedStat('topAssist')}
+              onMouseLeave={() => setHighlightedStat(null)}
+              onClick={() => handleViewPlayerDetails(topAssist.id)}
+            >
+              <div className="flex items-center space-x-4">
+                <div className="bg-team-blue/90 rounded-full p-3">
+                  <TrendingUp size={24} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white text-lg font-oswald">Assist Leader</h3>
+                  <p className="text-white/70 text-sm">{topAssist.name}</p>
+                </div>
+              </div>
+              <div className="mt-4 text-center">
+                <div className={`text-4xl font-oswald ${highlightedStat === 'topAssist' ? 'text-team-blue animate-pulse-glow' : 'text-white'}`}>
+                  {topAssist.stats.assists}
+                </div>
+                <div className="text-white/50 text-sm uppercase">Assists</div>
+              </div>
+            </div>
+            
+            <div 
+              className="bg-gradient-to-br from-team-black to-team-gray/80 p-6 rounded-sm border border-white/10 transform hover:scale-105 transition-transform duration-300"
+              onMouseEnter={() => setHighlightedStat('mostMatches')}
+              onMouseLeave={() => setHighlightedStat(null)}
+              onClick={() => handleViewPlayerDetails(mostMatches.id)}
+            >
+              <div className="flex items-center space-x-4">
+                <div className="bg-white/20 rounded-full p-3">
+                  <Users size={24} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white text-lg font-oswald">Most Appearances</h3>
+                  <p className="text-white/70 text-sm">{mostMatches.name}</p>
+                </div>
+              </div>
+              <div className="mt-4 text-center">
+                <div className={`text-4xl font-oswald ${highlightedStat === 'mostMatches' ? 'text-white animate-pulse-glow' : 'text-white'}`}>
+                  {mostMatches.stats.matches}
+                </div>
+                <div className="text-white/50 text-sm uppercase">Matches</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Players Section with Filters */}
       <section className="py-16 bg-team-gray/20">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <button 
-              onClick={() => setPositionFilter('All')}
-              className={`px-6 py-2 rounded-sm font-medium transition-all ${
-                positionFilter === 'All' 
-                  ? 'bg-team-red text-white' 
-                  : 'bg-team-black/50 text-white/70 hover:bg-team-black/70 hover:text-white'
-              }`}
-            >
-              All Players
-            </button>
-            <button 
-              onClick={() => setPositionFilter('Forward')}
-              className={`px-6 py-2 rounded-sm font-medium transition-all ${
-                positionFilter === 'Forward' 
-                  ? 'bg-team-red text-white' 
-                  : 'bg-team-black/50 text-white/70 hover:bg-team-black/70 hover:text-white'
-              }`}
-            >
-              Forwards
-            </button>
-            <button 
-              onClick={() => setPositionFilter('Midfielder')}
-              className={`px-6 py-2 rounded-sm font-medium transition-all ${
-                positionFilter === 'Midfielder' 
-                  ? 'bg-team-red text-white' 
-                  : 'bg-team-black/50 text-white/70 hover:bg-team-black/70 hover:text-white'
-              }`}
-            >
-              Midfielders
-            </button>
-            <button 
-              onClick={() => setPositionFilter('Defender')}
-              className={`px-6 py-2 rounded-sm font-medium transition-all ${
-                positionFilter === 'Defender' 
-                  ? 'bg-team-red text-white' 
-                  : 'bg-team-black/50 text-white/70 hover:bg-team-black/70 hover:text-white'
-              }`}
-            >
-              Defenders
-            </button>
-            <button 
-              onClick={() => setPositionFilter('Goalkeeper')}
-              className={`px-6 py-2 rounded-sm font-medium transition-all ${
-                positionFilter === 'Goalkeeper' 
-                  ? 'bg-team-red text-white' 
-                  : 'bg-team-black/50 text-white/70 hover:bg-team-black/70 hover:text-white'
-              }`}
-            >
-              Goalkeepers
-            </button>
+          <div className="mb-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+              {/* Search */}
+              <div className="relative w-full md:w-64">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <Search size={18} className="text-white/50" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search players..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-team-black/30 border border-white/10 text-white/90 pl-10 pr-4 py-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-team-blue"
+                />
+              </div>
+              
+              {/* Sort and Filter */}
+              <div className="flex space-x-4 w-full md:w-auto">
+                <div className="relative w-full md:w-48">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <Filter size={18} className="text-white/50" />
+                  </div>
+                  <select
+                    value={positionFilter}
+                    onChange={(e) => setPositionFilter(e.target.value)}
+                    className="w-full bg-team-black/30 border border-white/10 text-white/90 pl-10 pr-4 py-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-team-blue appearance-none"
+                  >
+                    <option value="All">All Positions</option>
+                    <option value="Forward">Forwards</option>
+                    <option value="Midfielder">Midfielders</option>
+                    <option value="Defender">Defenders</option>
+                    <option value="Goalkeeper">Goalkeepers</option>
+                  </select>
+                </div>
+                
+                <div className="relative w-full md:w-48">
+                  <select
+                    value={sortOption}
+                    onChange={(e) => setSortOption(e.target.value)}
+                    className="w-full bg-team-black/30 border border-white/10 text-white/90 px-4 py-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-team-blue appearance-none"
+                  >
+                    <option value="number">Sort by Number</option>
+                    <option value="name">Sort by Name</option>
+                    <option value="matches">Sort by Matches</option>
+                    <option value="goals">Sort by Goals</option>
+                    <option value="assists">Sort by Assists</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
           
+          {/* Display Results Count */}
+          <div className="mb-6 text-white/70">
+            Showing {sortedPlayers.length} player{sortedPlayers.length !== 1 ? 's' : ''}
+            {positionFilter !== 'All' ? ` (${positionFilter}s)` : ''}
+            {searchQuery ? ` matching "${searchQuery}"` : ''}
+          </div>
+          
+          {/* Players Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPlayers.map(player => (
-              <PlayerCard key={player.id} player={player} />
+            {sortedPlayers.map(player => (
+              <PlayerCard 
+                key={player.id} 
+                player={player} 
+                onViewDetails={handleViewPlayerDetails}
+              />
             ))}
           </div>
+          
+          {sortedPlayers.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-white/70 text-lg">No players match your search criteria.</p>
+              <button 
+                onClick={() => {
+                  setSearchQuery('');
+                  setPositionFilter('All');
+                }}
+                className="mt-4 bg-team-black/70 hover:bg-team-black px-4 py-2 text-white rounded-sm"
+              >
+                Clear Filters
+              </button>
+            </div>
+          )}
         </div>
       </section>
       
@@ -274,6 +431,14 @@ const Players = () => {
           </div>
         </div>
       </section>
+      
+      {/* Player Detail Modal */}
+      {showDetailModal && selectedPlayer && (
+        <PlayerDetail 
+          player={selectedPlayer} 
+          onClose={closePlayerDetails} 
+        />
+      )}
       
       <Footer />
     </PageTransition>
