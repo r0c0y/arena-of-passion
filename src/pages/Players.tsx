@@ -318,7 +318,7 @@ const Players = () => {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1459865264687-595d652de67e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')] bg-cover bg-center opacity-20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <span className="text-team-red font-medium uppercase tracking-wider text-sm">The Warriors</span>
+            <span className="text-team-red font-medium uppercase tracking-wider text-sm">The Warriors</span><br></br>
             <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-oswald uppercase mt-2 mb-6 relative inline-block">
               <span className="relative z-10">Our Players</span>
               <span className="absolute -left-1 -top-1 text-team-blue opacity-50 z-0">Our Players</span>
